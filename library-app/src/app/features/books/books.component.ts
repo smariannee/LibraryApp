@@ -1,12 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { BookService } from '../../core/services/book.service';
-import { Book } from '../../core/models/book.models';
+import { BookService } from './services/book.service';
+import { Book } from './models/book.models';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-books',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './books.component.html',
   styleUrl: './books.component.css'
 })
