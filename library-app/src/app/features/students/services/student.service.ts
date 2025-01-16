@@ -68,4 +68,10 @@ export class StudentService {
     getStudents(): Student[] {
         return this.students;
     }
+
+    addStudent(student: Student): void {
+        student.id = this.students.length + 1;
+        this.students.unshift(student);
+    }
+
 }
