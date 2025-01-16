@@ -83,4 +83,9 @@ export class StudentService {
         this.students[index] = student;
     }
 
+    changeStudentStatus(id: number): void {
+        const index = this.students.findIndex((b) => b.id === id);
+        this.students[index].status = !this.students[index].status;
+    }
+
 }

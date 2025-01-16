@@ -47,4 +47,10 @@ export class StudentsComponent {
       this.currentPage = page;
     }
   }
+
+  changeStudentStatus(studentId: number) {
+    this.studentService.changeStudentStatus(studentId);
+    this.students = this.studentService.getStudents();
+    alert('Estado del estudiante actualizado');
+  }
 }

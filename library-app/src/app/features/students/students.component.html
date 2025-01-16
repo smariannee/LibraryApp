@@ -44,7 +44,8 @@
                             Modificar <i class="bi bi-pencil-square"></i>
                         </button>
                         <button class="btn btn-sm d-flex align-items-center"
-                            [ngClass]="student.status ? 'btn-danger' : 'btn-success'">
+                            [ngClass]="student.status ? 'btn-danger' : 'btn-success'"
+                            (click)="changeStudentStatus(student.id!)">
                             {{ student.status ? 'Desactivar' : 'Activar' }}
                             <i
                                 [class]="student.status ? 'bi bi-arrow-down-square ms-2' : 'bi bi-arrow-up-square ms-2'"></i>
