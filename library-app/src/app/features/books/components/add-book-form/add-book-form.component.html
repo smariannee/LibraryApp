@@ -1,0 +1,128 @@
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mt-4 mb-3">
+        <h2 class="mb-0">Nuevo Libro</h2>
+        <button class="btn btn-secondary d-flex align-items-center" routerLink="/books">
+            <span class="me-2">Regresar</span>
+            <i class="bi bi-arrow-left-circle"></i>
+        </button>
+    </div>
+    <form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
+        <div class="row form-container p-3">
+            <div class="col-md-7">
+                <div class="row">
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Título</label>
+                        <input type="text" id="title" class="form-control" formControlName="title"
+                            [class.is-invalid]="bookForm.get('title')?.invalid && bookForm.get('title')?.touched"
+                            placeholder="Ingresa el título del libro" />
+                        <div class="invalid-feedback">
+                            <span *ngIf="bookForm.get('title')?.errors?.['required']">El título es obligatorio.</span>
+                            <span *ngIf="bookForm.get('title')?.errors?.['minlength']">
+                                El título debe tener al menos 3 caracteres.
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="author" class="form-label">Autor(a)</label>
+                        <input type="text" id="author" class="form-control" formControlName="author"
+                            [class.is-invalid]="bookForm.get('author')?.invalid && bookForm.get('author')?.touched"
+                            placeholder="Ingresa el autor(a) del libro" />
+                        <div class="invalid-feedback">
+                            <span *ngIf="bookForm.get('author')?.errors?.['required']">El autor es obligatorio.</span>
+                            <span *ngIf="bookForm.get('author')?.errors?.['minlength']">
+                                El autor debe tener al menos 3 caracteres.
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label for="year" class="form-label">Año de publicación</label>
+                        <input type="number" id="year" class="form-control" formControlName="year"
+                            [class.is-invalid]="bookForm.get('year')?.invalid && bookForm.get('year')?.touched"
+                            placeholder="Año de publicación" />
+                        <div class="invalid-feedback">
+                            <span *ngIf="bookForm.get('year')?.errors?.['required']">El año es obligatorio.</span>
+                            <span *ngIf="bookForm.get('year')?.errors?.['min']">
+                                El año debe ser mayor o igual a 0.
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label for="pages" class="form-label">Número de páginas</label>
+                        <input type="number" id="pages" class="form-control" min="1" formControlName="pages"
+                            [class.is-invalid]="bookForm.get('pages')?.invalid && bookForm.get('pages')?.touched"
+                            placeholder="Número de páginas" />
+                        <div class="invalid-feedback">
+                            <span *ngIf="bookForm.get('pages')?.errors?.['required']">El número de páginas es
+                                obligatorio.</span>
+                            <span *ngIf="bookForm.get('pages')?.errors?.['min']">
+                                El número de páginas debe ser mayor o igual a 1.
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label for="quantity" class="form-label">Cantidad</label>
+                        <input type="number" id="quantity" class="form-control" min="1" formControlName="quantity"
+                            [class.is-invalid]="bookForm.get('quantity')?.invalid && bookForm.get('quantity')?.touched"
+                            placeholder="Cantidad de libros" />
+                        <div class="invalid-feedback">
+                            <span *ngIf="bookForm.get('quantity')?.errors?.['required']">La cantidad es
+                                obligatoria.</span>
+                            <span *ngIf="bookForm.get('quantity')?.errors?.['min']">
+                                La cantidad debe ser mayor o igual a 1.
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Descripción</label>
+                        <textarea id="description" class="form-control" rows="4" formControlName="description"
+                            [class.is-invalid]="bookForm.get('description')?.invalid && bookForm.get('description')?.touched"
+                            placeholder="Ingresa una descripción del libro"></textarea>
+                        <div class="invalid-feedback">
+                            <span *ngIf="bookForm.get('description')?.errors?.['required']">
+                                La descripción es obligatoria.
+                            </span>
+                            <span *ngIf="bookForm.get('description')?.errors?.['minlength']">
+                                La descripción debe tener al menos 10 caracteres.
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5 d-flex flex-column">
+                <div class="text-center d-flex align-items-center justify-content-center" style="height: 100%;">
+                    <img *ngIf="bookForm.get('image')?.value" [src]="bookForm.get('image')?.value" alt="Vista previa"
+                        class="img-fluid img-thumbnail" style="height: 280px; width: auto; object-fit: cover;" />
+                    <p *ngIf="!bookForm.get('image')?.value" class="text-muted">No hay una imagen cargada.</p>
+                </div>
+
+                <div class="mt-auto mb-3">
+                    <label for="image" class="form-label">URL de la imagen</label>
+                    <input type="url" id="image" class="form-control" formControlName="image"
+                        [class.is-invalid]="bookForm.get('image')?.invalid && bookForm.get('image')?.touched"
+                        placeholder="Ingresa la URL de la imagen del libro" />
+                    <div class="invalid-feedback">
+                        <span *ngIf="bookForm.get('image')?.errors?.['required']">La URL es obligatoria.</span>
+                        <span *ngIf="bookForm.get('image')?.errors?.['pattern']">
+                            La URL debe comenzar con "http://" o "https://".
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-end my-3">
+            <button type="reset" class="btn btn-danger d-flex justify-content-between align-items-center">
+                <span class="me-2">Limpiar</span>
+                <i class="bi bi-trash"></i>
+            </button>
+            <button type="submit" class="btn btn-primary ms-2 d-flex justify-content-between align-items-center">
+                <span class="me-2">Guardar</span>
+                <i class="bi bi-save"></i>
+            </button>
+        </div>
+    </form>
+</div>

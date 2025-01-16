@@ -1,0 +1,17 @@
+.container {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+img {
+    object-fit: cover;
+    max-width: 100%;
+    max-height: 400px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+p {
+    color: #333;
+}
