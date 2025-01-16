@@ -71,4 +71,9 @@ export class BookService {
     getBookDetailsById(id: number): Book | undefined {
         return this.books.find((book) => book.id === id);
     }
+
+    addBook(book: Book): void {
+        book.id = this.books.length + 1;
+        this.books.unshift(book);
+    }
 }
