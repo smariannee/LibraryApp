@@ -10,12 +10,16 @@
     </div>
   </div>
 
-
   <div class="row">
     <div class="col-md-3 mb-4" *ngFor="let book of paginatedBooks">
       <div class="card">
         <img [src]="book.image" class="card-img-top" alt="{{ book.title }}" />
         <div class="card-body">
+          <h6>
+            <span class="badge" [ngClass]="book.available === 0 ? 'text-bg-danger' : 'text-bg-success'">
+              {{ book.available === 0 ? 'No disponible' : 'Disponible' }}
+            </span>
+          </h6>
           <h5 class="card-title">{{ book.title }}</h5>
           <p class="card-text">{{ book.author }}</p>
           <button class="btn btn-sm btn-primary d-block mx-auto">Ver detalles</button>
