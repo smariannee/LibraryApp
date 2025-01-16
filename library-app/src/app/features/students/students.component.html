@@ -40,7 +40,7 @@
                     <td>{{ student.phone }}</td>
                     <td>{{ student.grade }}° cuatrimestre</td>
                     <td class="d-flex flex-row">
-                        <button class="btn btn-warning btn-sm me-2">
+                        <button class="btn btn-warning btn-sm me-2" [routerLink]="['/students/update', student.id]">
                             Modificar <i class="bi bi-pencil-square"></i>
                         </button>
                         <button class="btn btn-sm d-flex align-items-center"

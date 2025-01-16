@@ -69,9 +69,18 @@ export class StudentService {
         return this.students;
     }
 
+    getStudentById(id: number): Student | undefined {
+        return this.students.find((student) => student.id === id);
+    }
+
     addStudent(student: Student): void {
         student.id = this.students.length + 1;
         this.students.unshift(student);
+    }
+
+    updateStudent(student: Student): void {
+        const index = this.students.findIndex((b) => b.id === student.id);
+        this.students[index] = student;
     }
 
 }

@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BookService } from './services/book.service';
-import { Book } from './models/book.models';
+import { Book } from './models/book.model';
 import { RouterModule } from '@angular/router';
 
 @Component({
