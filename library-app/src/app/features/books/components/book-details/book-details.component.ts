@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { BookService } from '../../services/book.service';
-import { Book } from '../../models/book.models';
+import { Book } from '../../models/book.model';
 
 @Component({
   selector: 'app-book-details',

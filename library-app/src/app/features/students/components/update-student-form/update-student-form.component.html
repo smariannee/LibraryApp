@@ -1,0 +1,79 @@
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mt-4 mb-3">
+        <h2 class="mb-0">Modificar Estudiante</h2>
+        <button class="btn btn-secondary d-flex align-items-center" routerLink="/students">
+            <span class="me-2">Regresar</span>
+            <i class="bi bi-arrow-left-circle"></i>
+        </button>
+    </div>
+    <form [formGroup]="studentForm" (ngSubmit)="onSubmit()">
+        <div class="row form-container p-3">
+            <div class="mb-3">
+                <label for="fullname" class="form-label">Nombre completo</label>
+                <input type="text" id="fullname" class="form-control" formControlName="fullname"
+                    [class.is-invalid]="studentForm.get('fullname')?.invalid && studentForm.get('fullname')?.touched"
+                    placeholder="Ingresa el nombre completo" />
+                <div class="invalid-feedback">
+                    <span *ngIf="studentForm.get('fullname')?.errors?.['required']">El nombre es obligatorio.</span>
+                    <span *ngIf="studentForm.get('fullname')?.errors?.['minlength']">
+                        El nombre debe tener al menos 3 caracteres.
+                    </span>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label for="email" class="form-label">Correo electrónico</label>
+                <input type="email" id="email" class="form-control" formControlName="email"
+                    [class.is-invalid]="studentForm.get('email')?.invalid && studentForm.get('email')?.touched"
+                    placeholder="Ingresa el correo electrónico" />
+                <div class="invalid-feedback">
+                    <span *ngIf="studentForm.get('email')?.errors?.['required']">El correo es obligatorio.</span>
+                    <span *ngIf="studentForm.get('email')?.errors?.['email']">
+                        Ingresa un correo electrónico válido.
+                    </span>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label for="phone" class="form-label">Teléfono</label>
+                <input type="text" id="phone" class="form-control" maxlength="10" formControlName="phone"
+                    [class.is-invalid]="studentForm.get('phone')?.invalid && studentForm.get('phone')?.touched"
+                    placeholder="Ingresa el teléfono (10 dígitos)" />
+                <div class="invalid-feedback">
+                    <span *ngIf="studentForm.get('phone')?.errors?.['required']">El teléfono es obligatorio.</span>
+                    <span *ngIf="studentForm.get('phone')?.errors?.['pattern']">
+                        Ingresa un teléfono válido de 10 dígitos.
+                    </span>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="grade" class="form-label">Grado escolar (cuatrimestre)</label>
+                <input type="number" id="grade" class="form-control" min="1" max="12" formControlName="grade"
+                    [class.is-invalid]="studentForm.get('grade')?.invalid && studentForm.get('grade')?.touched"
+                    placeholder="Ingresa el grado (1 a 12)" />
+                <div class="invalid-feedback">
+                    <span *ngIf="studentForm.get('grade')?.errors?.['required']">El grado es obligatorio.</span>
+                    <span *ngIf="studentForm.get('grade')?.errors?.['min']">
+                        El grado debe ser al menos 1.
+                    </span>
+                    <span *ngIf="studentForm.get('grade')?.errors?.['max']">
+                        El grado no puede ser mayor a 12.
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-end my-3">
+            <button type="button" class="btn btn-danger d-flex justify-content-between align-items-center"
+                routerLink="/students">
+                <span class="me-2">Cancelar</span>
+                <i class="bi bi-trash"></i>
+            </button>
+            <button type="submit" class="btn btn-primary ms-2 d-flex justify-content-between align-items-center">
+                <span class="me-2">Guardar cambios</span>
+                <i class="bi bi-save"></i>
+            </button>
+        </div>
+    </form>
+</div>
