@@ -8,6 +8,7 @@ import { AddBookFormComponent } from './features/books/components/add-book-form/
 import { UpdateBookFormComponent } from './features/books/components/update-book-form/update-book-form.component';
 import { AddStudentFormComponent } from './features/students/components/add-student-form/add-student-form.component';
 import { UpdateStudentFormComponent } from './features/students/components/update-student-form/update-student-form.component';
+import { LoanDetailsComponent } from './features/loans/components/loan-details/loan-details.component';
 
 export const routes: Routes = [
     {
@@ -54,5 +55,10 @@ export const routes: Routes = [
         path: 'loans',
         component: LoansComponent,
         title: 'Loans'
+    },
+    {
+        path: 'loans/details/:id',
+        component: LoanDetailsComponent,
+        title: 'Loan Details'
     }
 ];

@@ -1,13 +1,15 @@
 <div class="container mt-4">
     <h2 class="mb-4">Gestión de Préstamos</h2>
 
-    <div class="mb-4">
-        <div class="input-group">
-            <input type="text" class="form-control" [(ngModel)]="searchQuery"
-                placeholder="Buscar por libro o usuario" />
-            <span class="input-group-text">
-                <i class="bi bi-search"></i>
-            </span>
+    <div class="row mb-4">
+        <div class="col-lg-10">
+            <div class="input-group">
+                <input type="text" class="form-control" [(ngModel)]="searchQuery"
+                    placeholder="Buscar por libro o usuario" />
+                <span class="input-group-text">
+                    <i class="bi bi-search"></i>
+                </span>
+            </div>
         </div>
     </div>
 
@@ -16,20 +18,21 @@
             <thead class="table-light">
                 <tr>
                     <th>#</th>
+                    <th>Folio</th>
                     <th>Libro</th>
                     <th>Estudiante</th>
                     <th>Fecha de préstamo</th>
                     <th>Fecha de entrega</th>
                     <th>Estado</th>
-                    <th>Fecha de devolución</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let loan of paginatedloans; let i = index">
                     <td>{{ (currentPage - 1) * loansPerPage + i + 1 }}</td>
-                    <td>{{ loan.bookTitle }}</td>
-                    <td>{{ loan.userFullName }}</td>
+                    <td>{{ loan.folio }}</td>
+                    <td>{{ loan.book }}</td>
+                    <td>{{ loan.student }}</td>
                     <td>{{ loan.startDate }}</td>
                     <td>{{ loan.endDate }}</td>
                     <td>
@@ -37,11 +40,11 @@
                             {{ loan.status ? 'Devuelto' : 'Prestado' }}
                         </span>
                     </td>
-                    <td>{{ loan.returnedDate }}</td>
                     <td>
-                        <button class="btn btn-sm d-flex align-items-center btn-primary" *ngIf="!loan.status">
-                            Marcar como devuelto
-                            <i class="bi bi-check-circle ms-2"></i>
+                        <button class="btn btn-sm d-flex align-items-center btn-primary"
+                            [routerLink]="['/loans/details', loan.id]">
+                            Ver detalles
+                            <i class="bi bi-eye ms-2"></i>
                         </button>
                     </td>
                 </tr>

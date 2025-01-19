@@ -1,11 +1,9 @@
 export interface LoanDto {
     id: number;
-    userId: number;
-    userFullName: string;
-    bookId: number;
-    bookTitle: string;
+    folio: string;
+    student: string;
+    book: string;
     startDate: string;
     endDate: string;
-    returnedDate?: string;
     status: boolean;
 }

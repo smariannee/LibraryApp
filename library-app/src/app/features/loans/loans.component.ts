@@ -26,8 +26,8 @@ export class LoansComponent {
   get filteredLoans() {
     return this.loans.filter(
       (loan) =>
-        loan.bookTitle.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-        loan.userFullName.toLowerCase().includes(this.searchQuery.toLowerCase())
+        loan.book.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+        loan.student.toLowerCase().includes(this.searchQuery.toLowerCase())
     );
   }
 
