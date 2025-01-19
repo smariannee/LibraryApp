@@ -1,0 +1,89 @@
+<div class="container" *ngIf="loan">
+    <div class="my-4 p-4">
+        <div class="d-flex justify-content-end align-items-center mb-4">
+            <button class="btn btn-secondary d-flex justify-content-between align-items-center" routerLink="/loans">
+                <span class="me-2">Regresar</span>
+                <i class="bi bi-arrow-left-circle"></i>
+            </button>
+            <button class="btn btn-primary ms-2 d-flex justify-content-between align-items-center" *ngIf="!loan.status"
+                (click)="returnBook(loan.id!, loan.status)">
+                <span class="me-2">Marcar como devuelto</span>
+                <i class="bi bi-check2-circle"></i>
+            </button>
+        </div>
+
+        <div class="card h-100 border-secondary mb-4">
+            <div class="card-header bg-secondary text-white d-flex align-items-center">
+                <i class="bi bi-card-text fs-4 me-2"></i>
+                <h5 class="mb-0">Información del préstamo</h5>
+            </div>
+            <div class="card-body">
+                <h5 class="mb-3 fw-bold">
+                    Folio del préstamo: <span class="text-muted">{{ loan.folio }}</span>
+                </h5>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p class="mb-2">
+                            <i class="bi bi-calendar-event me-2 text-secondary"></i>
+                            <strong>Fecha de inicio:</strong>
+                            <span class="ms-1">{{ loan.startDate }}</span>
+                        </p>
+                        <p class="mb-2">
+                            <i class="bi bi-calendar-event me-2 text-secondary"></i>
+                            <strong>Fecha de fin:</strong>
+                            <span class="ms-1">{{ loan.endDate }}</span>
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="mb-2">
+                            <i class="me-2"
+                                [ngClass]="loan.status ? 'bi bi-check-circle text-success' : 'bi bi-x-circle text-warning'"></i>
+                            <strong>Estado del préstamo: </strong>
+                            <span class="badge" [ngClass]="loan.status ? 'text-bg-success' : 'text-bg-warning'">
+                                {{ loan.status ? 'Devuelto' : 'Pendiente' }}
+                            </span>
+                        </p>
+                        <p class="mb-2">
+                            <i class="me-2"
+                                [ngClass]="loan.status ? 'bi bi-calendar-check text-success' : 'bi bi-calendar-x text-warning'"></i>
+                            <strong>Fecha de devolución:</strong>
+                            <span class="ms-1">{{ loan.returnedDate ?? '--' }}</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-md-6 mb-4">
+                <div class="card h-100 border-primary">
+                    <div class="card-header bg-primary text-white d-flex align-items-center">
+                        <i class="bi bi-book fs-4 me-2"></i>
+                        <h5 class="mb-0">Información del libro</h5>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Título:</strong> {{ loan.book.title }}</p>
+                        <p><strong>Autor(a):</strong> {{ loan.book.author }}</p>
+                        <p><strong>Año de publicación:</strong> {{ loan.book.year }}</p>
+                        <p><strong>Páginas:</strong> {{ loan.book.pages }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 mb-4">
+                <div class="card h-100 border-success">
+                    <div class="card-header bg-success text-white d-flex align-items-center">
+                        <i class="bi bi-person fs-4 me-2"></i>
+                        <h5 class="mb-0">Información del estudiante</h5>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Nombre:</strong> {{ loan.student.fullname }}</p>
+                        <p><strong>Correo electrónico:</strong> {{ loan.student.email }}</p>
+                        <p><strong>Teléfono:</strong> {{ loan.student.phone }}</p>
+                        <p><strong>Grado:</strong> {{ loan.student.grade }}° cuatrimestre</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
