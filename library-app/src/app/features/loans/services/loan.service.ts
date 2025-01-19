@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { LoanDto } from '../models/dto/loan.dto';
 import { Loan } from '../models/loan.model';
+import { getToday } from '../../../core/utils/moment';
 
 @Injectable({
     providedIn: 'root'
@@ -232,5 +233,19 @@ export class LoanService {
 
     getLoanDetailsById(id: number): Loan | undefined {
         return this.loans.find((loan) => loan.id === id);
+    }
+
+    returnBook(id: number): void {
+        const loan = this.loans.find((loan) => loan.id === id);
+        if (loan && !loan.status) {
+            loan.status = true;
+            loan.returnedDate = getToday();
+        }
+        
+        const loanDto = this.loanDto.find((loan) => loan.id === id);
+        if (loanDto) {
+            loanDto.status = true;
+            loanDto.endDate = getToday();
+        }
     }
 }

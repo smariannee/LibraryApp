@@ -19,4 +19,14 @@ export class LoanDetailsComponent {
     const loanId = +(this.route.snapshot.params['id']);
     this.loan = this.loanService.getLoanDetailsById(loanId);
   }
+
+  returnBook(loanId: number, loanStatus: boolean) {
+    if (!loanStatus) {
+      this.loanService.returnBook(loanId);
+      this.loan = this.loanService.getLoanDetailsById(loanId);
+      alert('Libro devuelto exitosamente');
+    } else {
+      alert('El libro ya ha sido devuelto');
+    }
+  }
 }
