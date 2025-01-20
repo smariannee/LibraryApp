@@ -3,6 +3,7 @@ import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { BookService } from '../../services/book.service';
+import { showConfirmationQuestion, showSuccessToast } from '../../../../core/utils/sweet-alert-functions';
 
 @Component({
   selector: 'app-update-book-form',
@@ -41,22 +42,33 @@ export class UpdateBookFormComponent {
 
   onSubmit(): void {
     if (this.bookForm.valid) {
-      this.bookService.updateBook({
-        id: this.bookId,
-        title: this.bookForm.value.title!,
-        author: this.bookForm.value.author!,
-        year: +this.bookForm.value.year!,
-        quantity: this.bookForm.value.quantity!,
-        available: this.bookForm.value.quantity!,
-        image: this.bookForm.value.image!,
-        description: this.bookForm.value.description!,
-        pages: this.bookForm.value.pages!
-      });
+      showConfirmationQuestion(
+        '¿Actualizar libro?',
+        '¿Estás seguro de que deseas actualizar este libro?',
+        'Sí, actualizar',
+        'Cancelar',
+        () => {
+          this.bookService.updateBook({
+            id: this.bookId,
+            title: this.bookForm.value.title!,
+            author: this.bookForm.value.author!,
+            year: +this.bookForm.value.year!,
+            quantity: this.bookForm.value.quantity!,
+            available: this.bookForm.value.quantity!,
+            image: this.bookForm.value.image!,
+            description: this.bookForm.value.description!,
+            pages: this.bookForm.value.pages!
+          });
 
-      alert('Libro actualizado éxitosamente');
-      this.router.navigate(['/books']);
-    } else {
-      alert('¡Ups! Algo salió mal. Por favor, verifica los datos ingresados');
+          showSuccessToast(
+            'Libro actualizado exitosamente',
+            () => {
+              this.router.navigate(['/books']);
+              this.bookForm.reset();
+            }
+          );
+        }
+      )
     }
   }
 }
