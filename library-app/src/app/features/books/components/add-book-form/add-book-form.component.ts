@@ -3,6 +3,7 @@ import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BookService } from '../../services/book.service';
 import { Router, RouterModule } from '@angular/router';
+import { showConfirmationQuestion, showSuccessToast } from '../../../../core/utils/sweet-alert-functions';
 
 @Component({
   selector: 'app-add-book-form',
@@ -26,21 +27,32 @@ export class AddBookFormComponent {
 
   onSubmit() {
     if (this.bookForm.valid) {
-      this.bookService.addBook({
-        title: this.bookForm.value.title!,
-        author: this.bookForm.value.author!,
-        year: +this.bookForm.value.year!,
-        quantity: this.bookForm.value.quantity!,
-        available: this.bookForm.value.quantity!,
-        image: this.bookForm.value.image!,
-        description: this.bookForm.value.description!,
-        pages: this.bookForm.value.pages!
-      });
-      alert('Libro registrado éxitosamente');
-      this.router.navigate(['/books']);
-      this.bookForm.reset();
-    } else {
-      alert('¡Ups! Algo salió mal. Por favor, verifica los datos ingresados');
+      showConfirmationQuestion(
+        '¿Registrar libro?',
+        '¿Estás seguro de que deseas registrar este libro?',
+        'Sí, registrar',
+        'Cancelar',
+        () => {
+          this.bookService.addBook({
+            title: this.bookForm.value.title!,
+            author: this.bookForm.value.author!,
+            year: +this.bookForm.value.year!,
+            quantity: this.bookForm.value.quantity!,
+            available: this.bookForm.value.quantity!,
+            image: this.bookForm.value.image!,
+            description: this.bookForm.value.description!,
+            pages: this.bookForm.value.pages!
+          });
+
+          showSuccessToast(
+            'Libro registrado exitosamente',
+            () => {
+              this.router.navigate(['/books']);
+              this.bookForm.reset();
+            }
+          );
+        }
+      );
     }
   }
 }

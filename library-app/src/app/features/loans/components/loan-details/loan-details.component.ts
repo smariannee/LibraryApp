@@ -3,6 +3,7 @@ import { Component, inject } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { LoanService } from '../../services/loan.service';
 import { Loan } from '../../models/loan.model';
+import { showConfirmationWarning, showErrorToast, showSuccessToast } from '../../../../core/utils/sweet-alert-functions';
 
 @Component({
   selector: 'app-loan-details',
@@ -22,11 +23,19 @@ export class LoanDetailsComponent {
 
   returnBook(loanId: number, loanStatus: boolean) {
     if (!loanStatus) {
-      this.loanService.returnBook(loanId);
-      this.loan = this.loanService.getLoanDetailsById(loanId);
-      alert('Libro devuelto exitosamente');
+      showConfirmationWarning(
+        '¿Marcar libro como devuelto?',
+        'Una vez marcado como devuelto, no podrá deshacer esta acción',
+        'Sí, devolver',
+        'Cancelar',
+        () => {
+          this.loanService.returnBook(loanId);
+          this.loan = this.loanService.getLoanDetailsById(loanId);
+          showSuccessToast('Libro devuelto exitosamente');
+        }
+      )
     } else {
-      alert('El libro ya ha sido devuelto');
+      showErrorToast('Error', 'El libro ya ha sido devuelto');
     }
   }
 }

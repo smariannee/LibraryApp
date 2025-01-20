@@ -8,6 +8,7 @@ import { Student } from '../../../students/models/student.model';
 import { Book } from '../../../books/models/book.model';
 import { BookService } from '../../../books/services/book.service';
 import { getNextDay, getToday, isEndDateValid } from '../../../../core/utils/moment';
+import { showConfirmationQuestion, showSuccessToast } from '../../../../core/utils/sweet-alert-functions';
 
 const endDateValidator = (startDateControlName: string): ValidatorFn => {
   return (control: AbstractControl): ValidationErrors | null => {
@@ -64,17 +65,28 @@ export class AddLoanFormComponent {
   
   onSubmit() {
     if (this.loanForm.valid) {
-      this.loanService.saveLoan({
-        bookId: this.book.id!,
-        studentId: +this.loanForm.value.studentId!,
-        startDate: this.loanForm.value.startDate!,
-        endDate: this.loanForm.value.endDate!,
-      });
-      alert('Préstamo realizado éxitosamente');
-      this.router.navigate(['/loans']);
-      this.loanForm.reset();
-    } else {
-      alert('¡Ups! Algo salió mal. Por favor, verifica los datos ingresados');
+      showConfirmationQuestion(
+        '¿Registrar préstamo?',
+        '¿Estás seguro de que deseas registrar este préstamo?',
+        'Sí, registrar',
+        'Cancelar',
+        () => {
+          this.loanService.saveLoan({
+            bookId: this.book.id!,
+            studentId: +this.loanForm.value.studentId!,
+            startDate: this.loanForm.value.startDate!,
+            endDate: this.loanForm.value.endDate!,
+          });
+
+          showSuccessToast(
+            'Préstamo realizado exitosamente',
+            () => {
+              this.router.navigate(['/loans']);
+              this.loanForm.reset();
+            }
+          );
+        }
+      );
     }
   }
 }

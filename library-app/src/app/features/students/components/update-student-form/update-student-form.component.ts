@@ -4,6 +4,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { StudentService } from '../../services/student.service';
 import { Student } from '../../models/student.model';
+import { showConfirmationQuestion, showSuccessToast } from '../../../../core/utils/sweet-alert-functions';
 
 @Component({
   selector: 'app-update-student-form',
@@ -42,19 +43,29 @@ export class UpdateStudentFormComponent {
 
   onSubmit(): void {
     if (this.studentForm.valid) {
-      this.studentService.updateStudent({
-        id: this.student?.id,
-        fullname: this.studentForm.value.fullname!,
-        email: this.studentForm.value.email!,
-        phone: this.studentForm.value.phone!,
-        grade: this.studentForm.value.grade!,
-        status: this.student?.status!
-      });
+      showConfirmationQuestion(
+        '¿Actualizar este estudiante?',
+        '¿Estás seguro de que deseas actualizar este estudiante?',
+        'Sí, actualizar',
+        'Cancelar',
+        () => {
+          this.studentService.updateStudent({
+            id: this.student?.id,
+            fullname: this.studentForm.value.fullname!,
+            email: this.studentForm.value.email!,
+            phone: this.studentForm.value.phone!,
+            grade: this.studentForm.value.grade!,
+            status: this.student?.status!
+          });
 
-      alert('Estudiante actualizado éxitosamente');
-      this.router.navigate(['/students']);
-    } else {
-      alert('¡Ups! Algo salió mal. Por favor, verifica los datos ingresados');
+          showSuccessToast(
+            'Estudiante actualizado',
+            () => {
+              this.router.navigate(['/students']);
+            }
+          );
+        }
+      )
     }
   }
 
