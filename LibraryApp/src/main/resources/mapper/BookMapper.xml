@@ -17,5 +17,13 @@
 
     <select id="findAll" resultMap="BookResultMap">
         SELECT * FROM BOOKS
+        WHERE 1 = 1
+        <if test="title != null and title != ''">
+            AND (LOWER(TITLE) LIKE '%' || LOWER(#{title}) || '%'
+            OR LOWER(AUTHOR) LIKE '%' || LOWER(#{title}) || '%')
+        </if>
+        ORDER BY ID
+        OFFSET #{offset} ROWS
+        FETCH NEXT #{limit} ROWS ONLY
     </select>
 </mapper>
