@@ -1,12 +1,19 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { LoanDto } from '../models/dto/loan.dto';
 import { Loan } from '../models/loan.model';
 import { getToday } from '../../../core/utils/moment';
+import { SaveLoanDto } from '../models/dto/save-loan.dto';
+import { Student } from '../../students/models/student.model';
+import { StudentService } from '../../students/services/student.service';
+import { BookService } from '../../books/services/book.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class LoanService {
+    bookService = inject(BookService);
+    studentService = inject(StudentService);
+
     protected loanDto: LoanDto[] = [
         {
             id: 1,
@@ -233,6 +240,36 @@ export class LoanService {
 
     getLoanDetailsById(id: number): Loan | undefined {
         return this.loans.find((loan) => loan.id === id);
+    }
+
+    saveLoan(loan: SaveLoanDto): void {
+        const id: number = this.loans.length + 1;
+        const book = this.bookService.getBookDetailsById(loan.bookId)!;
+        const student: Student = this.studentService.getStudentById(loan.studentId)!;
+
+        const newLoan: Loan = {
+            id,
+            folio: `P-${id.toString().padStart(3, '0')}`,
+            student: student,
+            book: book,
+            startDate: loan.startDate,
+            endDate: loan.endDate,
+            status: false
+        };
+
+        this.loans.unshift(newLoan);
+
+        const newLoanDto: LoanDto = {
+            id,
+            folio: newLoan.folio,
+            student: newLoan.student.fullname,
+            book: newLoan.book.title,
+            startDate: newLoan.startDate,
+            endDate: newLoan.endDate,
+            status: false
+        };
+
+        this.loanDto.unshift(newLoanDto);
     }
 
     returnBook(id: number): void {

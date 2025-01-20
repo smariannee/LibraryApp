@@ -1,0 +1,82 @@
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mt-4 mb-3">
+        <h2 class="mb-0">Registrar Préstamo</h2>
+        <button class="btn btn-secondary d-flex align-items-center" [routerLink]="['/books/details', book.id]">
+            <span class="me-2">Regresar</span>
+            <i class="bi bi-arrow-left-circle"></i>
+        </button>
+    </div>
+
+    <form [formGroup]="loanForm" (ngSubmit)="onSubmit()">
+        <div class="row form-container p-3">
+
+            <div class="px-3">
+                <div class="card mb-3" *ngIf="book">
+                    <div class="card-body">
+                        <h4 class="card-title mb-3">
+                            {{ book.title }}
+                            <small class="text-muted">({{ book.author }})</small>
+                        </h4>
+                        <h6 class="card-text">
+                            <span class="badge bg-success">
+                                {{ book.available }} {{ book.available === 1 ? 'ejemplar' : 'ejemplares' }}
+                                disponibles
+                            </span>
+                        </h6>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="studentId" class="form-label">Estudiante</label>
+                <select id="studentId" class="form-select" formControlName="studentId"
+                    [class.is-invalid]="loanForm.get('studentId')?.invalid && loanForm.get('studentId')?.touched">
+                    <option :value="null" disabled selected>Selecciona un estudiante</option>
+                    <option *ngFor="let student of students" [value]="student.id">{{ student.fullname }}</option>
+                </select>
+                <div class="invalid-feedback">
+                    <span *ngIf="loanForm.get('studentId')?.errors?.['required']">
+                        El estudiante es obligatorio.
+                    </span>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label for="startDate" class="form-label">Fecha de inicio</label>
+                <input type="date" id="startDate" class="form-control" formControlName="startDate" [min]="minDate"
+                    [class.is-invalid]="loanForm.get('startDate')?.invalid && loanForm.get('startDate')?.touched" />
+                <div class="invalid-feedback">
+                    <span *ngIf="loanForm.get('startDate')?.errors?.['required']">
+                        La fecha de inicio es obligatoria.
+                    </span>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label for="endDate" class="form-label">Fecha de fin</label>
+                <input type="date" id="endDate" class="form-control" formControlName="endDate" [min]="getMinEndDate()"
+                    [class.is-invalid]="loanForm.get('endDate')?.invalid && loanForm.get('endDate')?.touched" />
+                <div class="invalid-feedback">
+                    <span *ngIf="loanForm.get('endDate')?.errors?.['required']">
+                        La fecha de fin es obligatoria.
+                    </span>
+                    <span *ngIf="loanForm.get('endDate')?.errors?.['endDateBeforeStartDate']">
+                        La fecha de fin debe ser mayor a la fecha de inicio.
+                    </span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="d-flex justify-content-end my-3">
+            <button type="reset" class="btn btn-danger d-flex justify-content-between align-items-center">
+                <span class="me-2">Limpiar</span>
+                <i class="bi bi-trash"></i>
+            </button>
+            <button type="submit" class="btn btn-primary ms-2 d-flex justify-content-between align-items-center">
+                <span class="me-2">Guardar</span>
+                <i class="bi bi-save"></i>
+            </button>
+        </div>
+    </form>
+</div>

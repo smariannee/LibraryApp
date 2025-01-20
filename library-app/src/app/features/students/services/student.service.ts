@@ -5,7 +5,6 @@ import { Student } from '../models/student.model';
     providedIn: 'root'
 })
 export class StudentService {
-
     protected students: Student[] = [
         {
             id: 1,
@@ -69,6 +68,10 @@ export class StudentService {
         return this.students;
     }
 
+    getActiveStudents(): Student[] {
+        return this.students.filter((student) => student.status);
+    }
+
     getStudentById(id: number): Student | undefined {
         return this.students.find((student) => student.id === id);
     }
@@ -87,5 +90,4 @@ export class StudentService {
         const index = this.students.findIndex((b) => b.id === id);
         this.students[index].status = !this.students[index].status;
     }
-
 }
