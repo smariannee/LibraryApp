@@ -1,31 +1,58 @@
-<div class="container flex-grow-1">
-    <h2 class="my-4">Dashboard</h2>
+<div class="container flex-grow-1 py-4">
+    <h2 class="mb-5 text-center">Dashboard</h2>
 
-    <div class="row">
-        <div class="col-md-4 mb-4">
-            <div class="card text-white bg-primary">
-                <div class="card-body">
-                    <h5 class="card-title">Libros Disponibles</h5>
-                    <p class="card-text">1,250</p>
+    <div class="mb-5">
+        <h4 class="text-center mb-4">Resumen del día</h4>
+        <div class="row g-4 text-center">
+            <div class="col-md-3">
+                <div class="p-3 border rounded shadow-sm bg-light">
+                    <i class="bi bi-plus-circle text-primary" style="font-size: 2rem;"></i>
+                    <p class="mt-2">Nuevos préstamos: <strong class="text-primary">120</strong></p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="p-3 border rounded shadow-sm bg-light">
+                    <i class="bi bi-calendar-check text-success" style="font-size: 2rem;"></i>
+                    <p class="mt-2">Entregas estimadas: <strong class="text-success">80</strong></p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="p-3 border rounded shadow-sm bg-light">
+                    <i class="bi bi-arrow-repeat text-warning" style="font-size: 2rem;"></i>
+                    <p class="mt-2">Devoluciones: <strong class="text-warning">45</strong></p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="p-3 border rounded shadow-sm bg-light">
+                    <i class="bi bi-exclamation-triangle text-danger" style="font-size: 2rem;"></i>
+                    <p class="mt-2">Entregas atrasadas: <strong class="text-danger">25</strong></p>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="col-md-4 mb-4">
-            <div class="card text-white bg-success">
-                <div class="card-body">
-                    <h5 class="card-title">Libros Prestados</h5>
-                    <p class="card-text">320</p>
-                </div>
+    <div class="card-group mb-4">
+        <div class="card border border-primary mx-2 shadow-sm rounded">
+            <div class="card-body text-center">
+                <i class="bi bi-book mb-2 text-primary" style="font-size: 2rem;"></i>
+                <h5 class="card-title text-primary">Libros disponibles</h5>
+                <h6 class="card-text fs-4">1,250</h6>
             </div>
         </div>
 
-        <div class="col-md-4 mb-4">
-            <div class="card text-white bg-warning">
-                <div class="card-body">
-                    <h5 class="card-title">Usuarios Registrados</h5>
-                    <p class="card-text">150</p>
-                </div>
+        <div class="card border border-success mx-2 shadow-sm rounded">
+            <div class="card-body text-center">
+                <i class="bi bi-check2-circle mb-2 text-success" style="font-size: 2rem;"></i>
+                <h5 class="card-title text-success">Préstamos activos</h5>
+                <h6 class="card-text fs-4">1,000</h6>
+            </div>
+        </div>
+
+        <div class="card border border-info mx-2 shadow-sm rounded">
+            <div class="card-body text-center">
+                <i class="bi bi-people-fill mb-2 text-info" style="font-size: 2rem;"></i>
+                <h5 class="card-title text-info">Usuarios activos</h5>
+                <h6 class="card-text fs-4">650</h6>
             </div>
         </div>
     </div>
